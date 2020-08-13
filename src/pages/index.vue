@@ -36,10 +36,7 @@
         <ul class="list-unstyled text-center ml-0">
           <li>
             <small>
-              <a
-                class="text-muted"
-                href="https://agilebits.com/onepassword"
-              >
+              <a class="text-muted" href="https://agilebits.com/onepassword">
                 1Password
               </a>
             </small>

@@ -13,32 +13,22 @@
           <ul class="list-unstyled ml-0">
             <li>
               <i class="fas fa-envelope-square mr-2"></i>
-              <a
-                class="contact-link "
-                href="mailto:mitchell@mitchellcash.com"
-              >
+              <a class="contact-link" href="mailto:mitchell@mitchellcash.com">
                 mitchell@mitchellcash.com
               </a>
               <noscript>
-                Email address protected from spambots; use a
-                JavaScript-enabled browser to see it.
+                Email address protected from spambots; use a JavaScript-enabled browser to see it.
               </noscript>
             </li>
             <li>
               <i class="fab fa-github-square mr-2"></i>
-              <a
-                class="contact-link"
-                href="https://github.com/mitchellcash "
-              >
+              <a class="contact-link" href="https://github.com/mitchellcash ">
                 GitHub
               </a>
             </li>
             <li>
               <i class="fab fa-hacker-news-square mr-2"></i>
-              <a
-                class="contact-link"
-                href="https://news.ycombinator.com/user?id=MitchellCash"
-              >
+              <a class="contact-link" href="https://news.ycombinator.com/user?id=MitchellCash">
                 Hacker News
               </a>
             </li>
