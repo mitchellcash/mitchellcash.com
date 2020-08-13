@@ -4,7 +4,7 @@
       <div class="col-sm-3"></div>
       <div class="col-sm-6">
         <img src="../assets/img/avatar.jpeg" class="rounded-circle img-fluid mb-3" />
-        <h1 class="text-center display-4 font-weight-bold page-title">Mitchell Cash</h1>
+        <h1 class="text-center display-4 font-weight-bold">Mitchell Cash</h1>
         <p class="text-center lead">Sort of geeky, sort of not.</p>
       </div>
       <div class="col-sm-3"></div>
@@ -93,13 +93,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {};
-</script>
-
-<style lang="scss">
-.page-title {
-  color: #3a3a3a;
-}
-</style>

@@ -39,7 +39,17 @@ export default {
    */
   modules: ['@nuxt/content', '@nuxtjs/feed', '@nuxtjs/pwa', '@nuxtjs/sitemap'],
   /*
-   ** Feed configuration
+   ** Content module configuration
+   */
+  content: {
+    markdown: {
+      prism: {
+        theme: 'prism-themes/themes/prism-material-oceanic.css'
+      }
+    }
+  },
+  /*
+   ** Feed module configuration
    */
   feed: [
     {
@@ -75,7 +85,7 @@ export default {
     }
   ],
   /*
-   ** Sitemap configuration
+   ** Sitemap module configuration
    */
   sitemap: {
     hostname: 'https://mitchellcash.com',
@@ -94,11 +104,6 @@ export default {
       return blogPaths;
     }
   },
-  /*
-   ** Content module configuration
-   ** See https://content.nuxtjs.org/configuration
-   */
-  content: {},
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
