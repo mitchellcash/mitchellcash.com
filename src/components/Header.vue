@@ -2,7 +2,7 @@
   <header>
     <div class="container">
       <nav class="navbar navbar-expand-md navbar-light p-0 my-2">
-        <nuxt-link to="/" class="navbar-brand">Mitchell Cash</nuxt-link>
+        <nuxt-link to="/" class="navbar-brand font-weight-bold">Mitchell Cash</nuxt-link>
 
         <button
           class="navbar-toggler"
@@ -31,5 +31,3 @@
     </div>
   </header>
 </template>
-
-<style lang="scss"></style>

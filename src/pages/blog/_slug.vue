@@ -7,20 +7,28 @@
           <div class="row mb-3">
             <div class="col">
               <h1 class="display-4">Blog</h1>
-              <small>
-                Subscribe <a href="/rss.xml" class="rss">via RSS</a>.
-              </small>
+              <small> Subscribe <a href="/rss.xml" class="rss">via RSS</a>. </small>
             </div>
           </div>
 
-          <div v-for="(post, index) in posts" :key="index" class="col-md-6 col-sm-12">
-            <h2>
-              <nuxt-link :to="post.path || '/'">{{ post.title }}</nuxt-link>
-            </h2>
-            <p>
-              <small>{{ post.createdAt }}</small>
-            </p>
-            <p>{{ post.description }}</p>
+          <div v-for="(post, index) in posts" :key="index">
+            <div class="row mb-3">
+              <div class="col">
+                <div class="card">
+                  <div class="card-body">
+                    <h6 class="card-subtitle text-muted mb-2">
+                      <small>{{ formatDate(post.createdAt) }}</small>
+                    </h6>
+                    <nuxt-link :to="post.path || '/'" class="post-title">
+                      <h5 class="card-title">{{ post.title }}</h5>
+                    </nuxt-link>
+                    <nuxt-link :to="post.path || '/'" class="post-excerpt">
+                      <p class="card-text text-muted">{{ post.description }}</p>
+                    </nuxt-link>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -40,17 +48,25 @@
 <script>
 export default {
   async asyncData({ $content, params, error }) {
-    const { slug } = params
+    const { slug } = params;
     const posts = await $content('blog', slug)
       .fetch()
       .catch((err) => {
-        error({ statusCode: 404, message: 'Page not found' })
-      })
+        error({ statusCode: 404, message: 'Page not found' });
+      });
     return {
       posts
+    };
+  },
+
+  methods: {
+    formatDate(date) {
+      const formattedDate = new Date(date);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return formattedDate.toLocaleString('en-AU', options);
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -72,7 +88,7 @@ export default {
   color: inherit;
 }
 
-.post-title div {
+.post-title h5 {
   font-weight: bold;
 }
 

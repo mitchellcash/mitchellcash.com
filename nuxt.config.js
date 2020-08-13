@@ -43,7 +43,7 @@ export default {
    */
   feed: [
     {
-      path: '/feed.xml',
+      path: '/rss.xml',
 
       async create(feed) {
         const baseUrl = 'https://mitchellcash.com';

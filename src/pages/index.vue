@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col-sm-4"></div>
-      <div class="col-sm-4">
-        <img src="../assets/img/avatar.jpeg" class="rounded-circle img-fluid" />
-        <h1 class="text-center display-4 page-title">Mitchell Cash</h1>
+    <div class="row my-5">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6">
+        <img src="../assets/img/avatar.jpeg" class="rounded-circle img-fluid mb-3" />
+        <h1 class="text-center display-4 font-weight-bold page-title">Mitchell Cash</h1>
         <p class="text-center lead">Sort of geeky, sort of not.</p>
       </div>
-      <div class="col-sm-4"></div>
+      <div class="col-sm-3"></div>
     </div>
 
     <div class="row">
@@ -101,6 +101,5 @@ export default {};
 <style lang="scss">
 .page-title {
   color: #3a3a3a;
-  font-weight: 500;
 }
 </style>
