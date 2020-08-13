@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div v-else-if="posts">
+    <div v-else-if="posts && !(posts instanceof Array)">
       <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-xs-12 col-lg-8">
@@ -46,7 +46,7 @@
               <small class="text-muted mb-4">
                 {{ formatPostDate(posts.createdAt) }} |
                 <i class="far fa-clock"></i>
-                <ReadingTime :content="posts.body" />
+                <ReadingTime :content="articleText" />
               </small>
             </p>
             <nuxt-content :document="posts" />
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import ReadingTime from '../../components/ReadingTime';
+import ReadingTime from '../../components/ReadingTime.vue';
 
 export default {
   async asyncData({ $content, params, error }) {
@@ -74,8 +74,21 @@ export default {
     };
   },
 
+  data() {
+    return {
+      isReadingTimeReady: false,
+      articleText: ''
+    };
+  },
+
   components: {
     ReadingTime
+  },
+
+  async mounted() {
+    if (this.posts && !(this.posts instanceof Array)) {
+      this.articleText = await this.getPostText(this.posts.path);
+    }
   },
 
   methods: {
@@ -89,6 +102,13 @@ export default {
       const formattedDate = new Date(date);
       const options = { year: 'numeric', month: 'short', day: 'numeric' };
       return formattedDate.toLocaleString('en-AU', options);
+    },
+
+    async getPostText(postPath) {
+      this.isReadingTimeReady = false;
+      const { text } = await this.$content(postPath, { text: true }).fetch();
+      this.isReadingTimeReady = true;
+      return text;
     }
   }
 };

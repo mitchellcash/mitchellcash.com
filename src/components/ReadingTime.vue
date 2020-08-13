@@ -10,24 +10,8 @@ export default {
 
   computed: {
     readingTime() {
-      let postBody = '';
       let minutes = 0;
-
-      const { children: rootChildren } = this.content;
-
-      rootChildren.forEach((childElement) => {
-        const { children } = childElement;
-
-        if (children) {
-          children.forEach((node) => {
-            if (node.type === 'text') {
-              postBody += `${node.value} `;
-            }
-          });
-        }
-      });
-
-      const contentString = JSON.stringify(postBody);
+      const contentString = JSON.stringify(this.content);
       const words = contentString.split(' ').length;
       const wordsPerMinute = 200;
       minutes = Math.ceil(words / wordsPerMinute);
