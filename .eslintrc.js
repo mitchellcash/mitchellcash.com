@@ -1,9 +1,20 @@
 module.exports = {
-  globals: {
-    __PATH_PREFIX__: true
+  root: true,
+  env: {
+    browser: true,
+    node: true,
   },
-  extends: ['react-app', 'google', 'prettier'],
-  rules: {
-    'max-len': ['warn', { code: 80 }]
-  }
-};
+  parserOptions: {
+    parser: 'babel-eslint',
+  },
+  extends: [
+    '@nuxtjs',
+    'prettier',
+    'prettier/vue',
+    'plugin:prettier/recommended',
+    'plugin:nuxt/recommended',
+  ],
+  plugins: ['prettier'],
+  // add your custom rules here
+  rules: {},
+}
