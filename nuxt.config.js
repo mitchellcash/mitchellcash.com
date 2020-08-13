@@ -3,10 +3,8 @@ export default {
 
   target: 'static',
 
-  /*
-   ** Headers of the page
-   ** See https://nuxtjs.org/api/configuration-head
-   */
+  srcDir: 'src/',
+
   head: {
     title: 'MitchellCash.com',
     meta: [
@@ -15,20 +13,20 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'I\'m Mitchell Cash: sort of geeky, sort of not.',
-      },
+        content: "I'm Mitchell Cash: sort of geeky, sort of not."
+      }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['bootstrap/scss/bootstrap.scss', '@/assets/scss/main.scss'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: [{ src: '../node_modules/bootstrap/js/src/index.js', mode: 'client' }],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -37,19 +35,14 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
-    // Doc: https://github.com/nuxt-community/stylelint-module
-    '@nuxtjs/stylelint-module',
-  ],
+  buildModules: [],
   /*
    ** Nuxt.js modules
    */
   modules: [
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
-    '@nuxt/content',
+    '@nuxt/content'
   ],
   /*
    ** Content module configuration
@@ -60,5 +53,5 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
-}
+  build: {}
+};
