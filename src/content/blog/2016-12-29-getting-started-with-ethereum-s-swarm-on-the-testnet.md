@@ -1,6 +1,6 @@
 ---
 title: Getting Started With Ethereum's Swarm on the Testnet
-date: '2016-12-29'
+createdAt: '2016-12-29'
 tags: [ethereum, swarm, testnet]
 ---
 

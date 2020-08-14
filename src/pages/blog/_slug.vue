@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="posts && posts instanceof Array">
+    <div v-if="articles && articles instanceof Array">
       <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-xs-12 col-lg-8">
@@ -11,19 +11,21 @@
             </div>
           </div>
 
-          <div v-for="(post, index) in posts" :key="index">
+          <div v-for="(article, index) in articles" :key="index">
             <div class="row mb-3">
               <div class="col">
                 <div class="card">
                   <div class="card-body">
                     <h6 class="card-subtitle text-muted mb-2">
-                      <small>{{ formatFeedDate(post.createdAt) }}</small>
+                      <small>{{ formatFeedDate(article.createdAt) }}</small>
                     </h6>
-                    <nuxt-link :to="post.path || '/'" class="feed-post-title">
-                      <h5 class="card-title">{{ post.title }}</h5>
+                    <nuxt-link :to="article.path || '/'" class="feed-post-title">
+                      <h5 class="card-title">{{ article.title }}</h5>
                     </nuxt-link>
-                    <nuxt-link :to="post.path || '/'" class="feed-post-excerpt">
-                      <p class="card-text text-muted">{{ post.description }}</p>
+                    <nuxt-link v-if="articlesReady" :to="article.path || '/'" class="feed-post-excerpt">
+                      <p class="card-text text-muted">
+                        {{ articleExcerptList.find((el) => el.slug === article.slug).excerpt }}
+                      </p>
                     </nuxt-link>
                   </div>
                 </div>
@@ -36,20 +38,20 @@
       </div>
     </div>
 
-    <div v-else-if="posts && !(posts instanceof Array)">
+    <div v-else-if="articles && !(articles instanceof Array)">
       <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-xs-12 col-lg-8">
           <article class="post-content mb-5">
-            <h1 class="font-weight-bold post-title">{{ posts.title }}</h1>
+            <h1 class="font-weight-bold post-title">{{ articles.title }}</h1>
             <p class="post-date">
               <small class="text-muted mb-4">
-                {{ formatPostDate(posts.createdAt) }} |
+                {{ formatPostDate(articles.createdAt) }} |
                 <i class="far fa-clock"></i>
                 <ReadingTime :content="articleText" />
               </small>
             </p>
-            <nuxt-content :document="posts" />
+            <nuxt-content :document="articles" />
           </article>
         </div>
         <div class="col-lg-2"></div>
@@ -64,19 +66,22 @@ import ReadingTime from '../../components/ReadingTime.vue';
 export default {
   async asyncData({ $content, params, error }) {
     const { slug } = params;
-    const posts = await $content('blog', slug)
+
+    const articles = await $content('blog', slug)
       .fetch()
-      .catch((err) => {
+      .catch(() => {
         error({ statusCode: 404, message: 'Page not found' });
       });
+
     return {
-      posts
+      articles
     };
   },
 
   data() {
     return {
-      isReadingTimeReady: false,
+      articlesReady: false,
+      articleExcerptList: [],
       articleText: ''
     };
   },
@@ -86,8 +91,23 @@ export default {
   },
 
   async mounted() {
-    if (this.posts && !(this.posts instanceof Array)) {
-      this.articleText = await this.getPostText(this.posts.path);
+    if (this.articles && this.articles instanceof Array) {
+      for (const article of this.articles) {
+        const articleExcerpt = await this.getArticleExcerpt(article.path);
+
+        const excerptObj = {
+          slug: article.slug,
+          excerpt: articleExcerpt
+        };
+
+        this.articleExcerptList.push(excerptObj);
+      }
+
+      this.articlesReady = true;
+    }
+
+    if (this.articles && !(this.articles instanceof Array)) {
+      this.articleText = await this.getArticleText(this.articles.path);
     }
   },
 
@@ -104,11 +124,58 @@ export default {
       return formattedDate.toLocaleString('en-AU', options);
     },
 
-    async getPostText(postPath) {
-      this.isReadingTimeReady = false;
-      const { text } = await this.$content(postPath, { text: true }).fetch();
-      this.isReadingTimeReady = true;
+    async getArticleText(articlePath) {
+      const { text } = await this.$content(articlePath, { text: true }).fetch();
       return text;
+    },
+
+    async getArticleExcerpt(articlePath) {
+      const EXCERPT_LENGTH = 200;
+      const articleText = await this.getArticleText(articlePath);
+      const lines = await articleText.split('\n');
+      const filteredArticleText = [];
+
+      // Don't make an excerpt that starts with a new line, heading or other non-paragraph content.
+      lines.forEach((line) => {
+        let badLine = false;
+
+        if (line === '') {
+          badLine = true;
+        }
+
+        if (line.charAt(0) === '_') {
+          badLine = true;
+        }
+
+        if (line.charAt(0) === '#') {
+          badLine = true;
+        }
+
+        if (!badLine) {
+          filteredArticleText.push(line);
+        }
+      });
+
+      // Get the excerpt from the filtered text first paragraph.
+      let articleExcerpt = filteredArticleText[0].substring(0, EXCERPT_LENGTH);
+
+      // If the excerpt is less than the length wanted that is fine.
+      if (articleExcerpt.length < EXCERPT_LENGTH) {
+        return articleExcerpt;
+      }
+
+      // If the excerpt is equal to the length we want let's make sure the last word is a whole
+      // word.
+      if (articleExcerpt.charAt(EXCERPT_LENGTH - 1) !== '') {
+        for (let i = EXCERPT_LENGTH - 1; i > 0; i--) {
+          if (articleExcerpt.charAt(i) === ' ') {
+            articleExcerpt = filteredArticleText[0].substring(0, i);
+            break;
+          }
+        }
+      }
+
+      return `${articleExcerpt}...`;
     }
   }
 };
