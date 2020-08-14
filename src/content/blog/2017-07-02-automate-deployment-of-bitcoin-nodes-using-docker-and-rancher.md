@@ -1,6 +1,6 @@
 ---
 title: 'Automate deployment of Bitcoin Nodes using Docker and Rancher'
-date: '2017-07-02'
+createdAt: '2017-07-02'
 tags: [bitcoin, cryptocurrency, docker, full node, rancher]
 ---
 
@@ -20,7 +20,7 @@ In order to use Rancher to manage Docker hosts and containers, we need to get Ra
 
 First, log into your DigitalOcean account and choose **Create Droplet**. Then, under the **Choose an Image** section, select the **One-click Apps** tag. Select the **Docker 17.05.0** for **Ubuntu 16.04** image.
 
-![Docker image](image-1.png)
+![Docker image](/blog-images/2017-07-02-automate-deployment-of-bitcoin-nodes-using-docker-and-rancher/image-1.png)
 
 Next, select a **1GB** Droplet and choose a datacenter region for your Droplet.
 
@@ -60,7 +60,7 @@ Once your server is up, browse to `http://your_server_ip/` to bring up the Ranch
 
 You will see a warning icon next to the **ADMIN** menu item at the top of the screen.
 
-![Access control is not configured](image-2.png)
+![Access control is not configured](/blog-images/2017-07-02-automate-deployment-of-bitcoin-nodes-using-docker-and-rancher/image-2.png)
 
 If you hover over this link, you'll see the message **Access Control is not configured**. Choose **Access Control** from the **ADMIN** menu. Github will be selected as the default authentication method, so follow the instructions on the page to register a new application with GitHub.
 
@@ -155,7 +155,7 @@ On the **Add Host** screen, you will see several providers: **Custon**, **Amazon
 
 Select the **DigitalOcean** option, as shown in the following figure:
 
-![Add host](image-3.png)
+![Add host](/blog-images/2017-07-02-automate-deployment-of-bitcoin-nodes-using-docker-and-rancher/image-3.png)
 
 In the **Access Token** field, place your Personal Access Token for the DigitalOcean API. Then press **Next: Configure Droplet**.
 
@@ -176,7 +176,7 @@ Finally, click Create. Rancher will use Docker Machine to create the specified D
 
 Within a few minutes you'll see your new host in the Rancher UI. You will also get some basic information about the host such as its IP address, processor clock-speed, memory, and storage.
 
-![Running host](image-4.png)
+![Running host](/blog-images/2017-07-02-automate-deployment-of-bitcoin-nodes-using-docker-and-rancher/image-4.png)
 
 You can repeat this step as many times as you need to launch more compute nodes into your deployment.
 
@@ -211,7 +211,7 @@ Now let's explore Rancher's built-in monitoring, and how to deactive and delete 
 
 Once your compute nodes are provisioned, click on the name of one of your hosts to pull up the Monitoring screen, where you can see the CPU utilization and memory consumption of that compute node.
 
-![Monitoring host](image-5.png)
+![Monitoring host](/blog-images/2017-07-02-automate-deployment-of-bitcoin-nodes-using-docker-and-rancher/image-5.png)
 
 You can also remote into the host and access the daemon's output thanks to the [docker logs command](https://docs.docker.com/engine/reference/commandline/logs/). You can find your Docker ID by opening the bitcoind-node container in the Rancher UI.
 
@@ -221,11 +221,11 @@ $ docker logs -f docker_id
 
 The last check you can do is enter your host IP and port 8333 into the **Check Node** tool over at [Bitnodes](https://bitnodes.21.co/).
 
-![Bitnodes check Bitcoin Node](image-6.png)
+![Bitnodes check Bitcoin Node](/blog-images/2017-07-02-automate-deployment-of-bitcoin-nodes-using-docker-and-rancher/image-6.png)
 
 To add more Bitcoin Nodes to the network, just repeat steps 3 to 6 above. You can shut down any additional nodes by visiting the **Hosts** page, locating your host, and clicking the **Deactivate** icon (the box with two vertical lines, as shown in the following figure:
 
-![Scale up new host](image-7.png)
+![Scale up new host](/blog-images/2017-07-02-automate-deployment-of-bitcoin-nodes-using-docker-and-rancher/image-7.png)
 
 You can then subsequently click either **Activate** or **Delete** from the menu to the right of the **Deactivate** button.
 

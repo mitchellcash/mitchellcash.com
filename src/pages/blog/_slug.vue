@@ -68,10 +68,13 @@ export default {
     const { slug } = params;
 
     const articles = await $content('blog', slug)
+      .sortBy('createdAt', 'desc')
       .fetch()
       .catch(() => {
         error({ statusCode: 404, message: 'Page not found' });
       });
+
+    console.log(articles);
 
     return {
       articles
@@ -216,7 +219,12 @@ export default {
  * Blog Post
  * =========
  */
-pre {
+.nuxt-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.nuxt-content pre {
   border-radius: 4px;
 }
 
