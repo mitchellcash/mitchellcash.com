@@ -16,16 +16,12 @@
         <ul class="list-unstyled text-center ml-0">
           <li>
             <small>
-              <a class="text-muted" href="https://cryptochart.io">
-                CryptoChart
-              </a>
+              <a class="text-muted" href="https://cryptochart.io"> CryptoChart </a>
             </small>
           </li>
           <li>
             <small>
-              <a class="text-muted" href="https://github.com/mitchellcash/pwngu">
-                pwngu
-              </a>
+              <a class="text-muted" href="https://github.com/mitchellcash/pwngu"> pwngu </a>
             </small>
           </li>
         </ul>
@@ -36,23 +32,17 @@
         <ul class="list-unstyled text-center ml-0">
           <li>
             <small>
-              <a class="text-muted" href="https://agilebits.com/onepassword">
-                1Password
-              </a>
+              <a class="text-muted" href="https://agilebits.com/onepassword"> 1Password </a>
             </small>
           </li>
           <li>
             <small>
-              <a class="text-muted" href="https://www.fastmail.com">
-                FastMail
-              </a>
+              <a class="text-muted" href="https://www.fastmail.com"> FastMail </a>
             </small>
           </li>
           <li>
             <small>
-              <a class="text-muted" href="https://mullvad.net">
-                Mullvad
-              </a>
+              <a class="text-muted" href="https://mullvad.net"> Mullvad </a>
             </small>
           </li>
         </ul>
@@ -83,9 +73,7 @@
           </li>
           <li>
             <small>
-              <a class="text-muted" href="https://github.com/mitchellcash/">
-                and more...
-              </a>
+              <a class="text-muted" href="https://github.com/mitchellcash/"> and more... </a>
             </small>
           </li>
         </ul>

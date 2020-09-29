@@ -22,9 +22,7 @@
             </li>
             <li>
               <i class="fab fa-github-square mr-2"></i>
-              <a class="contact-link" href="https://github.com/mitchellcash ">
-                GitHub
-              </a>
+              <a class="contact-link" href="https://github.com/mitchellcash "> GitHub </a>
             </li>
             <li>
               <i class="fab fa-hacker-news-square mr-2"></i>

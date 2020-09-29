@@ -1,9 +1,14 @@
+import nuxtContent from '@nuxt/content';
+import fs from 'fs';
+import path from 'path';
+import remark from 'remark';
+import remarkUnlink from 'remark-unlink';
+import { getArticleExcerpt, getArticleReadingTime } from './src/utils/utils';
+
 const siteTitle = 'MitchellCash.com';
 const siteDescription = "I'm Mitchell Cash: sort of geeky, sort of not.";
 
 export default {
-  mode: 'universal',
-
   target: 'static',
 
   srcDir: 'src/',
@@ -39,6 +44,22 @@ export default {
    */
   modules: ['@nuxt/content', '@nuxtjs/feed', '@nuxtjs/pwa', '@nuxtjs/sitemap'],
   /*
+   ** Content module hooks
+   */
+  hooks: {
+    'content:file:beforeInsert': async (document) => {
+      // Generate post excerpt and attach to the document object.
+      if (document.extension === '.md') {
+        const articleParsedText = await remark().use(remarkUnlink).process(document.text);
+
+        // eslint-disable-next-line no-param-reassign
+        document.excerpt = await getArticleExcerpt(articleParsedText.contents);
+        // eslint-disable-next-line no-param-reassign
+        document.readingTime = getArticleReadingTime(articleParsedText.contents);
+      }
+    }
+  },
+  /*
    ** Content module configuration
    */
   content: {
@@ -58,14 +79,14 @@ export default {
       async create(feed) {
         const baseUrl = 'https://mitchellcash.com';
 
+        // eslint-disable-next-line no-param-reassign
         feed.options = {
           title: siteTitle,
           link: baseUrl,
           description: siteDescription
         };
 
-        const { $content } = require('@nuxt/content');
-        const articles = await $content('blog').fetch();
+        const articles = await nuxtContent.$content('blog').fetch();
 
         articles.forEach((article) => {
           const url = `${baseUrl}/blog/${article.slug}`;
@@ -91,8 +112,6 @@ export default {
     hostname: 'https://mitchellcash.com',
 
     routes: async () => {
-      const fs = require('fs');
-      const path = require('path');
       const blogPaths = [];
 
       blogPaths.push('/blog');
